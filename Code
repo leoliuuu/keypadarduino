@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+char KEY[4] = {'1','2','3','4'};
+char attempt[4] = {0,0,0,0};
+char start = '#';
+int z=0;
+
+void correctKEY();
+void incorrectKEY();
+void checkKEY();
+void readKeypad();
+
+int main()
+{
+   cin >> start;
+   readKeypad();
+}
+
+void correctKEY()
+{
+   cout << " CORRECT ";
+}
+void incorrectKEY()
+{
+   cout << " WRONG ";
+}
+void checkKEY()
+{
+   int correct=0;
+   int i;
+   int zz;
+   cout << "Enter 4 Digit Password:" << endl;
+   for ( i = 0; i < 4 ; i++ )
+   {
+      cin >> attempt[i];
+      if (attempt[i]==KEY[i])
+      {
+         correct++;
+      }
+      if (attempt[i]=='#')
+      {
+        break;
+      }
+   }
+   if (correct==4)
+   {
+      correctKEY();
+   }
+   else
+   {
+      incorrectKEY();
+   }
+   for (int zz=0; zz <= 4; zz++)
+   {
+      attempt[zz]=0;
+   }
+}
+
+void readKeypad()
+{
+  if (start = '*')
+  {
+    checkKEY();
+  }
+  else
+  {
+    cout << "Invalid" << endl;
+  }
+}

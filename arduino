@@ -1,0 +1,151 @@
+char KEY[4] = {'1','2','3','4'};
+char attempt[4] = {0,0,0,0};
+char start = '#';
+int z=0;
+int x
+int input[12];
+int h=0,v=0;
+
+int keypad()
+{
+  static bool nopress=0;
+  for(x=0;x<12;x++)
+  {
+     if (digitalRead(input[x])==HIGH);
+     else
+     break;
+     if(x==11)
+     {
+      nopress=1;
+      h=0;
+      v=0;
+     }
+  }
+  if(nopress==1)
+  {
+    for(h=0;h<12;h++)
+    {
+      if(digitalRead(input[h])==HIGH)
+      continue;
+      else
+      {
+          for (v=0;v<rows;v++)
+          {
+          if(digitalRead(input[h])==HIGH)
+          {
+            nopress=0;       
+            for(byte w=0;w<rows;w++)
+            digitalWrite(Output[w],LOW);
+            return h
+          }
+          }
+      }
+    }
+  }
+ return 50;
+}
+
+void correctKEY()
+{
+   Serial.print(" CORRECT ");
+}
+void incorrectKEY()
+{
+   Serial.print(" WRONG ");
+}
+void checkKEY()
+{
+   int correct=0;
+   int i;
+   int zz;
+   cout << "Enter 4 Digit Password:" << endl;
+   for ( i = 0; i < 4 ; i++ )
+   {
+      switch (keypad())
+   {
+            case 0:
+            Serial.println("*");
+       break;  
+            case 1:
+            Serial.println(7);
+       break;
+            case 2:
+            Serial.println(4);
+       break;
+            case 3:
+            Serial.println(1);
+       break;
+            case 4:
+            Serial.println(0);
+       break;
+            case 5:
+            Serial.println(8);
+       break;
+            case 6:
+            Serial.println(5);
+       break;
+            case 7:
+            Serial.println(2);
+       break;
+            case 8:
+            Serial.println("#");
+       break;
+            case 9:
+            Serial.println(9);
+       break;
+            case 10:
+            Serial.println(6);
+       break;
+            case 11:
+            Serial.println(3);
+       break;
+      if (attempt[i]==KEY[i])
+      {
+         correct++;
+      }
+      if (attempt[i]=='#')
+      {
+        break;
+      }
+   }
+   if (correct==4)
+   {
+      correctKEY();
+   }
+   else
+   {
+      incorrectKEY();
+   }
+   for (int zz=0; zz <= 4; zz++)
+   {
+      attempt[zz]=0;
+   }
+}
+
+void readKeypad()
+{
+  if (start = '*')
+  {
+    checkKEY();
+  }
+  else
+  {
+    Serial.print("Invalid");
+  }
+}
+
+void setup()
+{
+   Serial.begin(9600);
+   pinMode(13, OUTPUT);
+   for(s=0; s<13; s++);
+   {
+      pinMode(input[s], INPUT_PULLUP);
+   }
+
+}
+
+void loop()
+{
+   readKeypad();
+}
